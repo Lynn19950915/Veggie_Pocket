@@ -1,0 +1,15 @@
+# Python 虛擬環境
+.venv/
+
+# Python 快取
+__pycache__/
+*.pyc
+
+# 環境變數
+.env
+
+# SQLite 資料庫
+*.db
+
+# 本機開發工具
+.vscode/

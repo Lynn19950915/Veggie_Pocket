@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後台頁</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+
+<body>
+    <header>
+        <div class="title">Veggie Pocket｜管理後台</div>
+    </header>
+
+    <main>
+        <div class="form-area">
+            <div class="title">新增店家</div>
+            <form>
+                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+                    <div class="form-group">
+                        <label for="brand">品牌名稱 *</label>
+                        <input type="text" id="brand" name="brand" placeholder="請輸入餐廳名稱" required>
+                    </div>
+                    <!-- 選填，非連鎖品牌可不輸入 -->
+                    <div class="form-group">
+                        <label for="branch">分店</label>
+                        <input type="text" id="branch" name="branch">
+                    </div>
+                </div>
+
+                <div class="form-row" style="grid-template-columns: 2fr 8fr">
+                    <div class="form-group">
+                        <label for="district">地址 *</label>
+                        <select id="district" name="district" required>
+                            <option value="">請選擇</option>
+                            {% for district in districts %}
+                            <option value="{{ district.code }}">
+                                {{ district.code }} {{ district.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="visibility: hidden">地址</label>
+                        <input type="text" id="address" name="address" placeholder="輸入至街道路名，例：四維二路" required>
+                    </div>
+                </div>
+
+                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+                    <div class="form-group">
+                        <label for="category">餐飲類型 *</label>
+                        <select id="category" name="category" required>
+                            <option value="">請選擇</option>
+                            {% for category in categories %}
+                                <option value="{{ category.code }}">
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="time_limit">用餐限時</label>
+                        <input type="number" id="time_limit" name="time_limit" min="0" step="5" placeholder="分鐘">
+                    </div>
+                </div>
+
+                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+                    <div class="form-group">
+                        <label>自由度 *</label>
+                        <div class="level-group">
+                            <label class="level-option">
+                                <input type="radio" name="level" value="1" required>
+                                <span style="font-size: 18px">🌱</span>
+                                <span class="level-count">1~2 種</span>
+                            </label>
+                            <label class="level-option">
+                                <input type="radio" name="level" value="2">
+                                <span style="font-size: 18px">🥬</span>
+                                <span class="level-count">3~8 種</span>
+                            </label>
+                            <label class="level-option">
+                                <input type="radio" name="level" value="3">
+                                <span style="font-size: 18px">🌳</span>
+                                <span class="level-count">9 種以上</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="other">其他</div>
+                        <div class="other other-row" style="grid-template-columns: 2fr 3fr">
+                            <div>鄰近</div>
+                            <input type="text" name="station" placeholder="捷運 / 輕軌站">
+                        </div>
+                        <div class="other other-row" style="grid-template-columns: 2fr 3fr">
+                            <div>首字筆畫</div>
+                            <input type="number" name="stroke" min="0" placeholder="英數字輸入 0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="map_url">Google 評論 *</label>
+                        <input type="url" id="map_url" name="map_url" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">＋ 新增餐廳</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

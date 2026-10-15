@@ -1,0 +1,19 @@
+/* 全站通用的色碼，與預設套用意義不同 */
+:root {
+    --color-bg: #E8F5EC;
+    --color-primary: #176B4D; --color-border: #C9DFD0;
+    --color-content: #243A30; --color-memo: #71877A;
+}
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    padding: 7.5px 30px;
+    background: var(--color-bg);
+}
+header > .title {
+    padding: 10px;
+    font-size: 20px; font-weight: bold; color: var(--color-primary);
+}

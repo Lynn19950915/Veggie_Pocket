@@ -1,0 +1,63 @@
+.form-area {
+    width: 40%; margin: 0px auto;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    background-color: #FFFFFF;
+}
+.form-area > .title {
+    padding: 15px 20px 10px 20px;
+    font-weight: bold; color: var(--color-content);
+}
+
+/* 由各行分配水平欄位寬度 */
+.form-row {
+    padding: 7.5px 20px; display: grid; gap: 12px;
+}
+/* 標籤、輸入框則垂直排列 */
+.form-group {
+    display: flex; flex-direction: column; gap: 5px;
+}
+.form-group label, .form-group .other {
+    font-size: 14px; font-weight: 500; color: var(--color-content);
+}
+.form-group input, .form-group select {
+    padding: 7.5px; 
+    border: 1px solid var(--color-border); border-radius: 6px;
+    font-size: 13px; color: var(--color-content);
+}
+
+.level-group {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+}
+.level-option {
+    padding: 5px;
+    border: 1px solid var(--color-border); border-radius: 5px;
+    display: flex; flex-direction: column; gap: 10px;
+    align-items: center; cursor: pointer;
+}
+.level-count {
+    font-size: 11px; color: var(--color-memo);
+}
+/* 隱藏預設的單選鈕 */
+.level-option > input {
+    position: absolute; opacity: 0;
+}
+/* 替被選取的項目上色 */
+.level-option:has(input:checked) {
+    background-color: var(--color-primary);
+}
+.level-option:has(input:checked) > .level-count {
+    color: #FFFFFF;
+}
+
+.other-row {
+    display: grid; gap: 5px; align-items: center;
+}
+.other-row > input {
+    padding: 6px 7.5px;
+}
+.submit-btn {
+    width: calc(100% - 40px); margin: 5px 20px 15px 20px; padding: 5px 0px;
+    border-radius: 5px;
+    font-size: 15px; font-weight: 600; color: white; background-color: var(--color-primary);
+    cursor: pointer;
+}

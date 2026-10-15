@@ -1,0 +1,9 @@
+[
+    {"code": "B", "name": "自助餐"},
+    {"code": "C", "name": "定食"},
+    {"code": "H", "name": "火鍋"},
+    {"code": "M", "name": "燒肉"},
+    {"code": "S", "name": "排餐"},
+    {"code": "T", "name": "鐵板燒"},
+    {"code": "X", "name": "其他"}
+]

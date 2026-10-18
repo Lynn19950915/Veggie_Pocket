@@ -1,28 +1,20 @@
-from fastapi import FastAPI, Request
+from contextlib import asynccontextmanager
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
-import json
-from pathlib import Path
+from database import create_db
+from routers import dashboard, index
 
 
-app = FastAPI()
-# 掛載靜態資源、建立模板引擎
+# 啟動時建立資料表
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db()
+    yield
+
+app = FastAPI(lifespan=lifespan)
+# 掛載靜態資源
 app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
 
-DISTRICTS = json.loads(Path("data/districts.json").read_text(encoding="utf-8"))
-CATEGORIES = json.loads(Path("data/categories.json").read_text(encoding="utf-8"))
-
-@app.get("/")
-def index(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="index.html", 
-    )
-
-@app.get("/dashboard")
-def dashboard(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="dashboard.html",
-        context={"districts": DISTRICTS, "categories": CATEGORIES}
-    )
+app.include_router(dashboard.router)
+app.include_router(index.router)

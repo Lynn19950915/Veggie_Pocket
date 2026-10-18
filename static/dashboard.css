@@ -3,7 +3,7 @@
     border: 1px solid var(--color-border); border-radius: 10px;
     background-color: #FFFFFF;
 }
-.form-area > .title {
+.form-area > #title {
     padding: 15px 20px 10px 20px;
     font-weight: bold; color: var(--color-content);
 }
@@ -19,13 +19,13 @@
 .form-group label, .form-group .other {
     font-size: 14px; font-weight: 500; color: var(--color-content);
 }
-.form-group input, .form-group select {
+.form-group input, .form-group select, #station-input {
     padding: 7.5px; 
     border: 1px solid var(--color-border); border-radius: 6px;
     font-size: 13px; color: var(--color-content);
 }
 
-.level-group {
+#level-group {
     display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
 }
 .level-option {
@@ -49,15 +49,27 @@
     color: #FFFFFF;
 }
 
-.other-row {
+.other-row, #station-input {
     display: grid; gap: 5px; align-items: center;
 }
-.other-row > input {
+.other-row > input, #station-input {
     padding: 6px 7.5px;
 }
-.submit-btn {
+/* 移除內層的框線及寬度 */
+#station-input > input {
+    min-width: 0; padding: 0;
+    border: none; outline: none;
+}
+#submit-btn {
     width: calc(100% - 40px); margin: 5px 20px 15px 20px; padding: 5px 0px;
     border-radius: 5px;
     font-size: 15px; font-weight: 600; color: white; background-color: var(--color-primary);
     cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .form-area {width: 60%}
+}
+@media (max-width: 768px) {
+    .form-area {width: 80%}
 }

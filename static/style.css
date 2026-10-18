@@ -1,6 +1,6 @@
 /* 全站通用的色碼，與預設套用意義不同 */
 :root {
-    --color-bg: #E8F5EC;
+    --color-bg: #E8F5EC;      --color-card: #FAFAF8;
     --color-primary: #176B4D; --color-border: #C9DFD0;
     --color-content: #243A30; --color-memo: #71877A;
 }

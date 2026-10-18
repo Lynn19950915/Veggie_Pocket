@@ -15,9 +15,9 @@
 
     <main>
         <div class="form-area">
-            <div class="title">新增店家</div>
-            <form>
-                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+            <div id="title">新增店家</div>
+            <form action="/dashboard" method="post">
+                <div class="form-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
                     <div class="form-group">
                         <label for="brand">品牌名稱 *</label>
                         <input type="text" id="brand" name="brand" placeholder="請輸入餐廳名稱" required>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" style="grid-template-columns: 2fr 8fr">
+                <div class="form-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 2fr)">
                     <div class="form-group">
                         <label for="district">地址 *</label>
                         <select id="district" name="district" required>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+                <div class="form-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
                     <div class="form-group">
                         <label for="category">餐飲類型 *</label>
                         <select id="category" name="category" required>
@@ -65,36 +65,40 @@
                     </div>
                 </div>
 
-                <div class="form-row" style="grid-template-columns: 5fr 5fr">
+                <div class="form-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)">
                     <div class="form-group">
                         <label>自由度 *</label>
-                        <div class="level-group">
+                        <div id="level-group">
                             <label class="level-option">
                                 <input type="radio" name="level" value="1" required>
                                 <span style="font-size: 18px">🌱</span>
-                                <span class="level-count">1~2 種</span>
+                                <span class="level-count">1~3 種</span>
                             </label>
                             <label class="level-option">
                                 <input type="radio" name="level" value="2">
                                 <span style="font-size: 18px">🥬</span>
-                                <span class="level-count">3~8 種</span>
+                                <span class="level-count">4~9 種</span>
                             </label>
                             <label class="level-option">
                                 <input type="radio" name="level" value="3">
                                 <span style="font-size: 18px">🌳</span>
-                                <span class="level-count">9 種以上</span>
+                                <span class="level-count">10 種以上</span>
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="other">其他</div>
-                        <div class="other other-row" style="grid-template-columns: 2fr 3fr">
+                        <div class="other other-row" style="grid-template-columns: minmax(0, 1fr) minmax(0, 3fr)">
                             <div>鄰近</div>
-                            <input type="text" name="station" placeholder="捷運 / 輕軌站">
+                            <!-- 水平排列，並包覆成輸入框 -->
+                            <div id="station-input" style="grid-template-columns: 9fr 1fr">
+                                <input type="text" name="station" placeholder="捷運 / 輕軌">
+                                <span style="line-height: 1">站</span>
+                            </div>
                         </div>
-                        <div class="other other-row" style="grid-template-columns: 2fr 3fr">
-                            <div>首字筆畫</div>
-                            <input type="number" name="stroke" min="0" placeholder="英數字輸入 0">
+                        <div class="other other-row" style="grid-template-columns: minmax(0, 2fr) minmax(0, 3fr)">
+                            <div>首字筆畫 *</div>
+                            <input type="number" name="stroke" min="0" placeholder="英、數字輸入 0" required>
                         </div>
                     </div>
                 </div>
@@ -106,9 +110,21 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">＋ 新增餐廳</button>
+                <button type="submit" id="submit-btn">＋ 新增餐廳</button>
             </form>
         </div>
     </main>
+
+    <script>
+        const form = document.querySelector("form");
+        const button = document.querySelector("#submit-btn");
+
+        form.addEventListener("submit", () => {
+            setTimeout(() => {
+                button.disabled = true;
+                button.textContent = "◌ 新增中";
+            }, 0);
+        });
+    </script>
 </body>
 </html>

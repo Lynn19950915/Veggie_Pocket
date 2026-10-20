@@ -5,11 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>品牌牆</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/index.css">
 </head>
 
 <body>
     <header>
         <div class="title">Veggie Pocket｜品牌一覽</div>
     </header>
+
+    <main>
+        <div id="restaurant-area">
+            <div id="restaurant-wall">
+                {% for restaurant in restaurants %}
+                    <div class="single-card">
+                        <div class="single-row" id="single-header">
+                            <!-- 近一週新增的店家 -->
+                            <span id="single-new-word"
+                                {% if (now - restaurant.created_at).days >= 7 %}
+                                    style="visibility: hidden;"
+                                {% endif %}>NEW
+                            </span>
+
+                            <span style="font-size: 10.5px">{{ restaurant.district_name }} • {{ restaurant.address }}</span>
+                        </div>
+
+                        <div id="single-name-word">
+                            <a href="{{ restaurant.map_url }}" target="_blank" rel="noopener noreferrer">
+                                {{ restaurant.brand }}
+                            </a>
+                        </div>
+                        <div class="single-row" id="single-info">
+                            <!-- 從屬性中再取出分類的資訊 -->
+                            <div id="single-icon" style="background-color: {{ restaurant.category_info.color }}">
+                                {{ restaurant.category_info.icon }}
+                            </div>
+
+                            <div id="single-info-flex">
+                                {% if restaurant.time_limit %}
+                                <div id="time-word">🕒 限時 <b>{{ restaurant.time_limit }}</b> 分</div>
+                                {% endif %}
+                                {% if restaurant.station %}
+                                <div id="station-word">🚇 {{ restaurant.station }}站</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="single-row" id="single-footer">
+                            <span style="font-size: 11px">自由度</span>
+                            <span id="level-{{ restaurant.level }}-word">
+                                {{ "1~3" if restaurant.level == 1 else "4~9" if restaurant.level == 2 else "10+" }}
+                            </span>
+                        </div>
+                        <!-- 根據 level-class 決定顯色長度 -->
+                        <div class="single-row card-progress" id="level-{{ restaurant.level }}-span">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
 </body>
 </html>

@@ -1,9 +1,9 @@
 [
-    {"code": "B", "name": "自助餐"},
-    {"code": "C", "name": "定食"},
-    {"code": "H", "name": "火鍋"},
-    {"code": "M", "name": "燒肉"},
-    {"code": "S", "name": "排餐"},
-    {"code": "T", "name": "鐵板燒"},
-    {"code": "X", "name": "其他"}
+    {"code": "B", "name": "自助餐", "icon": "🍽️", "color": "#BDE5DB"},
+    {"code": "C", "name": "定食", "icon": "🍚", "color": "#D6E3F5"},
+    {"code": "H", "name": "火鍋", "icon": "🍲", "color": "#F3D19A"},
+    {"code": "M", "name": "燒肉", "icon": "🍖", "color": "#E9A49B"},
+    {"code": "S", "name": "排餐", "icon": "🥩", "color": "#E9A49B"},
+    {"code": "T", "name": "鐵板燒", "icon": "👨‍🍳", "color": "#ECEEF3"},
+    {"code": "X", "name": "其他", "icon": "❓", "color": "#4D5868"}
 ]

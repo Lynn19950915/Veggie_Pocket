@@ -1,0 +1,90 @@
+#restaurant-area {
+    width: 85%; margin: 0px auto; padding: 20px;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    background-color: #FFFFFF;
+}
+#restaurant-wall {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px;
+}
+
+.single-card {
+    padding: 7.5px;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    color: var(--color-content); background-color: var(--color-card);
+}
+.single-row {
+    padding: 2.5px;
+}
+
+
+#single-header, #single-footer {
+    display: flex; justify-content: space-between; align-items: center;
+}
+/* 扁寬的字形效果 */
+#single-new-word {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 11px; font-weight: bold; color: #DC3545; transform: scaleY(0.8);
+}
+#single-name-word {
+    padding: 5px;
+    font-size: 13px; font-weight: bold;
+    text-align: center;
+}
+
+/* 水平置中，右側資訊則向上對齊 */
+#single-info {
+    min-height: 60px; padding: 5px 0;
+    display: flex; gap: 10px; justify-content: center; align-items: self-start;
+}
+/* 算出右欄的高度，反向固定圖片尺寸 */
+#single-icon {
+    height: 52px; aspect-ratio: 1 / 1;
+    border-radius: 5px;
+    font-size: 28px;
+    display: flex; justify-content: center; align-items: center;
+}
+#single-info-flex {
+    padding: 4px 0;
+    display: flex; flex-direction: column; gap: 7.5px;
+}
+#time-word {
+    width: fit-content; padding: 1.5px 3px;
+    border-radius: 5px;
+    font-size: 10px; background-color: #F8E9C9; color: #76551D;
+}
+#station-word {
+    width: fit-content; padding: 1.5px 3px;
+    border-radius: 5px;
+    font-size: 10px; background-color: #DCEAF7; color: #284F78;
+}
+
+
+#level-1-word {
+    font-size: 12px; font-weight: 600; color: #E8B568;
+}
+#level-2-word {
+    font-size: 12px; font-weight: 600; color: #8DBA92;
+}
+#level-3-word {
+    font-size: 12px; font-weight: 600; color: #39866D;
+}
+
+.card-progress {
+    padding: 2.5px 4px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5px;
+}
+.card-progress > span {
+    height: 7.5px;
+    border-radius: 4px;
+    background-color: #E5E7E3;
+}
+/* 把前 n 段的進度條換色 */
+.card-progress#level-1-span span:nth-child(-n+1) {
+    background-color: #E8B568;
+}
+.card-progress#level-2-span span:nth-child(-n+2) {
+    background-color: #8DBA92;
+}
+.card-progress#level-3-span span:nth-child(-n+3) {
+    background-color: #39866D;
+}

@@ -10,34 +10,37 @@
 
 /* 由各行分配水平欄位寬度 */
 .form-row {
-    padding: 7.5px 20px; display: grid; gap: 12px;
+    padding: 7.5px 20px;
+    display: grid; gap: 12px;
 }
 /* 標籤、輸入框則垂直排列 */
 .form-group {
     display: flex; flex-direction: column; gap: 5px;
 }
-.form-group label, .form-group .other {
+.form-group > label, .form-group > .other {
     font-size: 14px; font-weight: 500; color: var(--color-content);
 }
-.form-group input, .form-group select, #station-input {
+.form-group > input, .form-group > select, #branch-input, #station-input, .other-row > input {
     padding: 7.5px; 
     border: 1px solid var(--color-border); border-radius: 6px;
     font-size: 13px; color: var(--color-content);
 }
 
+
 #level-group {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
 }
 .level-option {
     padding: 5px;
     border: 1px solid var(--color-border); border-radius: 5px;
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: 7.5px;
     align-items: center; cursor: pointer;
 }
 .level-count {
     font-size: 11px; color: var(--color-memo);
 }
-/* 隱藏預設的單選鈕 */
+
+/* 隱藏預設的圓圈，但保留選取功能 */
 .level-option > input {
     position: absolute; opacity: 0;
 }
@@ -49,27 +52,43 @@
     color: #FFFFFF;
 }
 
-.other-row, #station-input {
+
+.other-row {
     display: grid; gap: 5px; align-items: center;
 }
-.other-row > input, #station-input {
+#branch-input, #station-input {
+    display: grid; gap: 5px;
+}
+#station-input, .other-row > input {
     padding: 6px 7.5px;
 }
-/* 移除內層的框線及寬度 */
-#station-input > input {
+/* 移除內層的框線及寬度、保留 focus 效果 */
+#branch-input > input, #station-input > input {
     min-width: 0; padding: 0;
     border: none; outline: none;
 }
+#branch-input:focus-within, #station-input:focus-within {
+    outline: -webkit-focus-ring-color auto 1px;
+}
+
 #submit-btn {
-    width: calc(100% - 40px); margin: 5px 20px 15px 20px; padding: 5px 0px;
+    width: calc(100% - 40px); margin: 10px 20px 15px 20px; padding: 5px 0px;
     border-radius: 5px;
     font-size: 15px; font-weight: 600; color: white; background-color: var(--color-primary);
     cursor: pointer;
 }
 
+
+/* RWD: 行動裝置的表單改成單欄 */
 @media (max-width: 1200px) {
     .form-area {width: 60%}
 }
 @media (max-width: 768px) {
     .form-area {width: 80%}
+}
+@media (max-width: 576px) {
+    .form-area {width: 95%}
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
 }

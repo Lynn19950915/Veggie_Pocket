@@ -1,13 +1,13 @@
 [
-    {"code": "811", "name": "楠梓區"},
-    {"code": "813", "name": "左營區"},
-    {"code": "804", "name": "鼓山區"},
-    {"code": "807", "name": "三民區"},
-    {"code": "803", "name": "鹽埕區"},
-    {"code": "801", "name": "前金區"},
-    {"code": "800", "name": "新興區"},
-    {"code": "802", "name": "苓雅區"},
-    {"code": "805", "name": "旗津區"},
-    {"code": "806", "name": "前鎮區"},
-    {"code": "812", "name": "小港區"}
+    {"code": "811", "name": "楠梓區", "order": 1},
+    {"code": "813", "name": "左營區", "order": 2},
+    {"code": "804", "name": "鼓山區", "order": 3},
+    {"code": "807", "name": "三民區", "order": 4},
+    {"code": "803", "name": "鹽埕區", "order": 5},
+    {"code": "801", "name": "前金區", "order": 6},
+    {"code": "800", "name": "新興區", "order": 7},
+    {"code": "802", "name": "苓雅區", "order": 8},
+    {"code": "805", "name": "旗津區", "order": 9},
+    {"code": "806", "name": "前鎮區", "order": 10},
+    {"code": "812", "name": "小港區", "order": 11}
 ]

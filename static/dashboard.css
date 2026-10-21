@@ -4,7 +4,7 @@
     background-color: #FFFFFF;
 }
 .form-area > #title {
-    padding: 15px 20px 10px 20px;
+    padding: 15px 20px 7.5px 20px;
     font-weight: bold; color: var(--color-content);
 }
 
@@ -64,7 +64,7 @@
 }
 /* 移除內層的框線及寬度、保留 focus 效果 */
 #branch-input > input, #station-input > input {
-    min-width: 0; padding: 0;
+    min-width: 0px; padding: 0px;
     border: none; outline: none;
 }
 #branch-input:focus-within, #station-input:focus-within {
@@ -72,7 +72,7 @@
 }
 
 #submit-btn {
-    width: calc(100% - 40px); margin: 10px 20px 15px 20px; padding: 5px 0px;
+    width: calc(100% - 40px); margin: 15px 20px; padding: 5px 0px;
     border-radius: 5px;
     font-size: 15px; font-weight: 600; color: white; background-color: var(--color-primary);
     cursor: pointer;

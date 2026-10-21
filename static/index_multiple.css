@@ -1,0 +1,95 @@
+#index-area {
+    width: 95%; margin: 0px auto; padding: 0px 10px;
+    display: grid; grid-template-columns: 1fr 6fr;
+    gap: 25px; align-items: start;
+}
+/* 各區之間垂直並排，內部資訊水平並排 */
+#stats-area {
+    padding-top: 10px; position: sticky;
+    display: flex; flex-direction: column; gap: 8px;
+}
+.district-item {
+    padding: 3px 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.district-item:hover {
+    background-color: #C9D8E3;
+    cursor: pointer;
+}
+.district-count {
+    padding: 1.5px 5px;
+    border-radius: 5px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 11.5px; font-weight: 600; color: #24684F; background-color: #D9F3E6;
+}
+#district-total {
+    color: #245B91; background-color: #DCEBFA;
+}
+
+.multiple-card {
+    padding: 7.5px;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    color: #FFFFFF; background-color: #205B4C;
+}
+#multiple-level {
+    padding: 1.5px 0;
+    font-size: 15px; color: #F2C66D;
+    letter-spacing: 1px; text-align: right;
+}
+#multiple-name-word {
+    width: 100%; padding-top: 25px;
+    font-size: 15.5px; font-weight: bold; color: var(--color-card);
+    text-align: center;
+}
+
+/* 容器本身置中，內容則垂直向下對齊 */
+#multiple-info-flex {
+    width: 75%; margin: 0px auto; padding: 15px 0px 5px 0px;
+    border-bottom: 1px solid #D0DED6;
+    display: flex; justify-content: center; align-items: baseline; gap: 6px;
+    font-size: 12px; font-weight: 400; color: #D0DED6;
+}
+#multiple-count-word {
+    font-family: 'Bodoni MT', serif;
+    font-size: 22px; color: var(--color-card);
+}
+
+
+@media (max-width: 1360px) {
+    #index-area {grid-template-columns: 1fr 5fr}
+    #restaurant-wall {grid-template-columns: repeat(5, 1fr)}
+}
+@media (max-width: 1024px) {
+    #index-area {grid-template-columns: 1fr 3fr}
+    #restaurant-wall {grid-template-columns: repeat(3, 1fr)}
+}
+/* RWD: 左右欄不再並排、行政區改為水平堆疊 */
+@media (max-width: 840px) {
+    #index-area {width: 100%; grid-template-columns: 1fr}
+    #stats-area {display: grid; grid-template-columns: repeat(5, 1fr)}
+    #restaurant-wall {grid-template-columns: repeat(3, 1fr)}
+}
+@media (max-width: 640px) {
+    #stats-area {display: grid; grid-template-columns: repeat(3, 1fr)}
+    #restaurant-wall {grid-template-columns: repeat(2, 1fr)}
+}
+@media (max-width: 440px) {
+    header > .title {font-size: 15px}
+    .district-item > div {font-size: 11px !important}
+    #restaurant-wall {grid-template-columns: 1fr}
+}
+@media (max-width: 360px) {
+    #stats-area {display: grid; grid-template-columns: repeat(2, 1fr)}
+}
+
+
+#empty-state {
+    margin: 0px auto;;
+    text-align: center; grid-column: 1 / -1;
+}
+#empty-title {
+    padding: 10px;
+    font-size: 20px; font-weight: 700;
+}

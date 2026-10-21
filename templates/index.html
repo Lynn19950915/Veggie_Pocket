@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>品牌牆</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="/static/index_single.css">
+    <link rel="stylesheet" href="/static/index_multiple.css">
 </head>
 
 <body>
@@ -14,56 +15,99 @@
     </header>
 
     <main>
-        <div id="restaurant-area">
-            <div id="restaurant-wall">
-                {% for restaurant in restaurants %}
-                    <div class="single-card">
-                        <div class="single-row" id="single-header">
-                            <!-- 近一週新增的店家 -->
-                            <span id="single-new-word"
-                                {% if (now - restaurant.created_at).days >= 7 %}
-                                    style="visibility: hidden;"
-                                {% endif %}>NEW
-                            </span>
+        <div id="index-area">
+            <div id="stats-area">
+                <a href="/" class="district-item">
+                    <div style="font-size: 14px"><b>全部</b></div>
+                    <div class="district-count" id="district-total">{{ total }}</div>
+                </a>
 
-                            <span style="font-size: 10.5px">{{ restaurant.district_name }} • {{ restaurant.address }}</span>
-                        </div>
-
-                        <div id="single-name-word">
-                            <a href="{{ restaurant.map_url }}" target="_blank" rel="noopener noreferrer">
-                                {{ restaurant.brand }}
-                            </a>
-                        </div>
-                        <div class="single-row" id="single-info">
-                            <!-- 從屬性中再取出分類的資訊 -->
-                            <div id="single-icon" style="background-color: {{ restaurant.category_info.color }}">
-                                {{ restaurant.category_info.icon }}
-                            </div>
-
-                            <div id="single-info-flex">
-                                {% if restaurant.time_limit %}
-                                <div id="time-word">🕒 限時 <b>{{ restaurant.time_limit }}</b> 分</div>
-                                {% endif %}
-                                {% if restaurant.station %}
-                                <div id="station-word">🚇 {{ restaurant.station }}站</div>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="single-row" id="single-footer">
-                            <span style="font-size: 11px">自由度</span>
-                            <span id="level-{{ restaurant.level }}-word">
-                                {{ "1~3" if restaurant.level == 1 else "4~9" if restaurant.level == 2 else "10+" }}
-                            </span>
-                        </div>
-                        <!-- 根據 level-class 決定顯色長度 -->
-                        <div class="single-row card-progress" id="level-{{ restaurant.level }}-span">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
+                <!-- 從屬性中再取出行政區的資訊 -->
+                {% for item, count in stats %}
+                <a href="/?district={{ item.district_info.code }}" class="district-item">
+                    <div style="font-size: 14px">{{ item.district_info.name }}</div>
+                    <div class="district-count">{{ count }}</div>
+                </a>
                 {% endfor %}
+            </div>
+
+            <div id="restaurant-area">
+                <div id="restaurant-wall">
+                    {% if restaurants|length > 0 %}
+                        {% for restaurant, branch_count in restaurants %}
+                            <!-- 1. 淺色卡片: 單一店家 -->
+                            {% if branch_count == 1 %}
+                            <div class="single-card">
+                                <div class="single-row" id="single-header">
+                                    <!-- 近一週新增的店家 -->
+                                    <span id="single-new-word"
+                                        {% if (now - restaurant.created_at).days >= 7 %}
+                                            style="visibility: hidden;"
+                                        {% endif %}>NEW
+                                    </span>
+
+                                    <span style="font-size: 10.5px">{{ restaurant.district_info.name }} • {{ restaurant.address }}</span>
+                                </div>
+
+                                <div id="single-name-word">
+                                    <a href="{{ restaurant.map_url }}" target="_blank" rel="noopener noreferrer">
+                                        {{ restaurant.brand }}
+                                    </a>
+                                </div>
+                                <div class="single-row" id="single-info">
+                                    <!-- 從屬性中再取出分類的資訊 -->
+                                    <div id="single-icon" style="background-color: {{ restaurant.category_info.color }}">
+                                        {{ restaurant.category_info.icon }}
+                                    </div>
+
+                                    <div id="single-info-flex">
+                                        {% if restaurant.time_limit %}
+                                        <div id="time-word">🕒 限時 <b>{{ restaurant.time_limit }}</b> 分</div>
+                                        {% endif %}
+                                        {% if restaurant.station %}
+                                        <div id="station-word">🚇 {{ restaurant.station }}站</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="single-row" id="single-footer">
+                                    <span style="font-size: 11px">自由度</span>
+                                    <span id="level-{{ restaurant.level }}-word">
+                                        {{ "1~3" if restaurant.level == 1 else "4~9" if restaurant.level == 2 else "10+" }}
+                                    </span>
+                                </div>
+                                <!-- 根據 level-class 決定顯色長度 -->
+                                <div class="single-row card-progress" id="level-{{ restaurant.level }}-span">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+
+                            <!-- 2. 深色卡片: 多間分店 -->
+                            {% else %}
+                            <div class="multiple-card">
+                                <div id="multiple-level">
+                                    {{ "✦"*restaurant.level }}{{ "✧"*(3-restaurant.level) }}
+                                </div>
+                                <div id="multiple-name-word">{{ restaurant.brand }}</div>
+
+                                <div id="multiple-info-flex">
+                                    <div>{{ restaurant.category_info.name }} •</div>
+                                    <div id="multiple-count-word">{{ branch_count }}</div>
+                                    <div>間分店</div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    
+                    {% else %}
+                    <div id="empty-state">
+                        <div id="empty-title">🍽️ 尚無餐廳</div>
+                        <div>正在積極蒐整資料，先查查別區吧！</div>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </main>

@@ -1,10 +1,11 @@
 #restaurant-area {
-    width: 85%; margin: 0px auto; padding: 20px;
-    border: 1px solid var(--color-border); border-radius: 10px;
+    padding: 15px;
+    border: 1px solid var(--color-border); border-radius: 15px;
     background-color: #FFFFFF;
 }
 #restaurant-wall {
-    display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px;
+    min-height: 80px;
+    display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap: 12px;
 }
 
 .single-card {
@@ -26,25 +27,25 @@
     font-size: 11px; font-weight: bold; color: #DC3545; transform: scaleY(0.8);
 }
 #single-name-word {
-    padding: 5px;
+    padding: 4px;
     font-size: 13px; font-weight: bold;
     text-align: center;
 }
 
 /* 水平置中，右側資訊則向上對齊 */
 #single-info {
-    min-height: 60px; padding: 5px 0;
-    display: flex; gap: 10px; justify-content: center; align-items: self-start;
+    min-height: 50px; padding: 5px 0px;
+    display: flex; gap: 7.5px; justify-content: center; align-items: self-start;
 }
 /* 算出右欄的高度，反向固定圖片尺寸 */
 #single-icon {
-    height: 52px; aspect-ratio: 1 / 1;
+    height: 50px; aspect-ratio: 1 / 1;
     border-radius: 5px;
     font-size: 28px;
     display: flex; justify-content: center; align-items: center;
 }
 #single-info-flex {
-    padding: 4px 0;
+    padding: 2.5px 0px;
     display: flex; flex-direction: column; gap: 7.5px;
 }
 #time-word {

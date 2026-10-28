@@ -1,0 +1,38 @@
+#stats-area {
+    width: 85%; margin: 0px auto;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+#stats-area #title {
+    padding: 15px 0px;
+    font-size: 17px; font-weight: 550; color: var(--color-content);
+}
+
+#table-area {
+    width: 80%; margin: 0px auto;
+}
+/* 設計表格外框的圓角 */
+#stats-table {
+    width: 90%; margin: 0px auto;
+    border: 1px solid var(--color-border); border-radius: 10px;
+    border-collapse: collapse; overflow: hidden;
+    background-color: #FFFFFF; text-align: center;
+}
+
+#stats-table th {
+    font-weight: 550; color: #FFFFFF; background-color: var(--color-primary);
+}
+#stats-table th, #stats-table td {
+    padding: 7.5px 10px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 15px;
+}
+.table-count {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 17px; color: #6941A5;
+}
+
+
+@media (max-width: 1024px) {
+    #stats-area {grid-template-columns: 1fr}
+    #table-area {width: 100%; margin: 75px 0px 15px 0px}
+}

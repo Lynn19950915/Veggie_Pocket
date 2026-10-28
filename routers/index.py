@@ -19,6 +19,7 @@ CATEGORIES = json.loads(Path("data/categories.json").read_text(encoding="utf-8")
 def load_index(
     request: Request,
     district: str | None = None,
+    category: str | None = None,
     db: Session = Depends(get_session)
 ):
     # 各行政區的店家統計
@@ -36,25 +37,51 @@ def load_index(
     
     
     district_list = {item["code"] for item in DISTRICTS}
+    # 該區擁有的餐飲類別、完整品牌/店家清單
     if district in district_list:
-        restaurants = db.exec(
+        categories = db.exec(
             select(
-                Restaurant,
-                literal(1).label("branch_count")
+                Restaurant, Restaurant.category,
+                func.count(Restaurant.id).label("category_count")
             ).where(
                 Restaurant.district == district
-            )
-        ).all()
-    elif not district:
-        # 品牌: 多間分店的資料會整合成一筆
-        restaurants = db.exec(
-            select(
-                Restaurant,
-                func.count(Restaurant.id).label("branch_count")
             ).group_by(
-                Restaurant.brand
+                Restaurant.category
+            )
+        ).all()       
+        
+        # 若有選分類則加一個條件
+        query = select(
+            Restaurant,
+            literal(1).label("branch_count")
+        ).where(
+            Restaurant.district == district
+        )
+        if category:
+            query = query.where(Restaurant.category == category)
+        restaurants = db.exec(query).all()
+        
+    elif not district:
+        categories = db.exec(
+            select(
+                Restaurant, Restaurant.category,
+                func.count(Restaurant.id).label("category_count")
+            ).group_by(
+                Restaurant.category
             )
         ).all()
+        
+        # 品牌: 多間分店的資料會整合成一筆
+        query = select(
+            Restaurant,
+            func.count(Restaurant.id).label("branch_count")
+        ).group_by(
+            Restaurant.brand
+        )
+        if category:
+            query = query.where(Restaurant.category == category)
+        restaurants = db.exec(query).all()
+
     else:
         raise HTTPException(status_code=422, detail="無效的行政區")
     
@@ -71,7 +98,10 @@ def load_index(
     return templates.TemplateResponse(
         request=request, name="index.html",
         context={
+            # 依據攜帶參數，改變被選項之樣式
+            "selected_d": district, "selected_c": category, 
             "stats": stats, "total": total,
+            "categories": categories,
             "restaurants": restaurants, "now": datetime.now()
         }
     )

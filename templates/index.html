@@ -11,27 +11,59 @@
 
 <body>
     <header>
-        <div class="title">Veggie Pocket｜品牌一覽</div>
+        <div class="title">Veggie Pocket｜品牌一覽
+            <a href="/statistic"><sup id="surprise">✦</sup></a>
+        </div>
     </header>
 
     <main>
         <div id="index-area">
             <div id="stats-area">
-                <a href="/" class="district-item">
-                    <div style="font-size: 14px"><b>全部</b></div>
+                <!-- 預設列出所有行政區 -->
+                <a href="/" class="district-item {% if selected_d is none %}item-selected{% endif %}">
+                    <div style="font-size: 14px">
+                        {% if selected_d is none %}📍{% endif %}全部
+                    </div>
                     <div class="district-count" id="district-total">{{ total }}</div>
                 </a>
 
                 <!-- 從屬性中再取出行政區的資訊 -->
                 {% for item, count in stats %}
-                <a href="/?district={{ item.district_info.code }}" class="district-item">
-                    <div style="font-size: 14px">{{ item.district_info.name }}</div>
-                    <div class="district-count">{{ count }}</div>
-                </a>
+                    {% if selected_d == item.district_info.code %}
+                    <a href="/?district={{ item.district_info.code }}" class="district-item item-selected">
+                        <div style="font-size: 14px">📍{{ item.district_info.name }}</div>
+                        <div class="district-count">{{ count }}</div>
+                    </a>
+                    {% else %}
+                    <a href="/?district={{ item.district_info.code }}" class="district-item">
+                        <div style="font-size: 14px">{{ item.district_info.name }}</div>
+                        <div class="district-count">{{ count }}</div>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
 
             <div id="restaurant-area">
+                <div id="category-list">
+                    {% for item, category, count in categories %}
+                        {% if selected_d is none %}
+                        <a href="/?&category={{ category }}"
+                            class="{% if selected_c == category %}item-selected{% endif %}" id="category-item">
+                            {{ item.category_info["name"] }} 
+                            <span id="category-count">{{ count }}</span>
+                        </a>
+
+                        {% else %}
+                        <!-- 挾帶行政區及分類，雙條件篩選 -->
+                        <a href="/?district={{ selected_d }}&category={{ category }}"
+                           class="{% if selected_c == category %}item-selected{% endif %}" id="category-item">
+                            {{ item.category_info["name"] }} 
+                            <span id="category-count">{{ count }}</span>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
                 <div id="restaurant-wall">
                     {% if restaurants|length > 0 %}
                         {% for restaurant, branch_count in restaurants %}
@@ -41,7 +73,7 @@
                                 <div class="single-row" id="single-header">
                                     <!-- 近一週新增的店家 -->
                                     <span id="single-new-word"
-                                        {% if (now - restaurant.created_at).days >= 7 %}
+                                        {% if (now - restaurant.created_at).days >= 3 %}
                                             style="visibility: hidden;"
                                         {% endif %}>NEW
                                     </span>

@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 # from fastapi.templating import Jinja2Templates
 
 from database import create_db
-from routers import dashboard, index
+from routers import dashboard, index, statistic
 
 
 # 服務啟動前，建立好資料表
@@ -21,3 +21,4 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # 由頁面各自處理請求
 app.include_router(dashboard.router)
 app.include_router(index.router)
+app.include_router(statistic.router)

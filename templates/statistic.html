@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>統計頁</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/statistic.css">
+</head>
+
+<body>
+    <header>
+        <div class="title">Veggie Pocket｜統計圖表</div>
+    </header>
+
+    <main>
+        <div id="stats-area">
+            <div style="height: 360px">
+                <div id="title">1. 行政區 / 自由度堆疊圖</div>
+                <canvas id="chart-content"></canvas>
+            </div>
+
+            <div id="table-area">
+                <div id="title">2. 類型數量統計表</div>
+                <table id="stats-table">
+                    <thead>
+                        <tr>
+                            <th>餐廳類型</th>
+                            <th>品牌數</th>
+                            <th>店家數</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for item in stats2 %}
+                        <tr>
+                            <!-- 從屬性中取得類型資料 -->
+                            <td>{{ item.Restaurant.category_info.icon }} {{ item.Restaurant.category_info.name }}</td>
+                            <td class="table-count">{{ item.brand_count }}</td>
+                            <td class="table-count">{{ item.restaurant_count }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr style="border-top: 1.5px solid black">
+                            <td>📊 總計</td>
+                            <td class="table-count">{{ total_brand }}</td>
+                            <td class="table-count">{{ total_restaurant }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const districts_stats = {{ stats1 | tojson }};
+        const ctx = document.getElementById("chart-content");
+        // 定義 chart.js 畫布的內容
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: districts_stats.district,
+                datasets: [
+                    {
+                        label: "Lv.1",
+                        data: districts_stats.level1,
+                        backgroundColor: "#E8B568"
+                    },
+                    {
+                        label: "Lv.2",
+                        data: districts_stats.level2,
+                        backgroundColor: "#8DBA92"
+                    },
+                    {
+                        label: "Lv.3",
+                        data: districts_stats.level3,
+                        backgroundColor: "#39866D"
+                    }
+                ]
+            },
+            options: {
+                // 指定橫向條圖、圖例位置
+                indexAxis: "y",
+                barThickness: "8",
+                plugins: {
+                    legend: {
+                        position: "top",
+                        align: "end"
+                    }
+                },
+
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: {stepSize: 4}
+                    },
+                    y: {
+                        stacked: true
+                    }
+                },
+                maintainAspectRatio: false,
+                responsive: true,
+            }
+        });
+    </script>
+</body>
+</html>

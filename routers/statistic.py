@@ -45,11 +45,8 @@ def load_statistic(
             func.sum(case((Restaurant.level == 2, 1), else_=0)).label("level2"),
             func.sum(case((Restaurant.level == 3, 1), else_=0)).label("level3"),
         )
-        .group_by(
-            Restaurant.district,
-        ).order_by(
-            func.count(Restaurant.id).desc()
-        )
+        .group_by(Restaurant.district)
+        .order_by(func.count(Restaurant.id).desc())
     ).all()
     stats1 = restruct_data(result)
     
@@ -60,18 +57,28 @@ def load_statistic(
             Restaurant,
             func.count(func.distinct(Restaurant.brand)).label("brand_count"),
             func.count(Restaurant.id).label("restaurant_count"),
-        ).group_by(
-            Restaurant.category
         )
+        .group_by(Restaurant.category)
     ).all()
     total_brand = sum(row.brand_count for row in stats2)
     total_restaurant = sum(row.restaurant_count for row in stats2)
+   
+    stats3 = db.exec(
+        select(
+            Restaurant.station,
+            func.count(Restaurant.id).label("restaurant_count"),
+        )
+        .where(Restaurant.station != None)
+        .group_by(Restaurant.station)
+        .order_by(func.count(Restaurant.id).desc())
+        .limit(5)
+    ).all()
     
     
     return templates.TemplateResponse(
         request=request, name="statistic.html",
         context={
-            "stats1": stats1, "stats2": stats2,
+            "stats1": stats1, "stats2": stats2, "stats3": stats3,
             "total_brand": total_brand, "total_restaurant": total_restaurant,
         }
     )

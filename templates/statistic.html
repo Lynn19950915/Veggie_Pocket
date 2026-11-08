@@ -16,13 +16,13 @@
 
     <main>
         <div id="stats-area">
-            <div style="height: 360px">
-                <div id="title">1. 行政區 / 自由度堆疊圖</div>
+            <div style="height: 340px">
+                <div class="title">1. 行政區 / 自由度堆疊圖</div>
                 <canvas id="chart-content"></canvas>
             </div>
 
             <div id="table-area">
-                <div id="title">2. 類型數量統計表</div>
+                <div class="title">2. 類型數量統計表</div>
                 <table id="stats-table">
                     <thead>
                         <tr>
@@ -48,6 +48,18 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <div id="rank-area">
+            <div class="title">3. 車站美食圈 Top 5</div>
+            <div id="rank-row">
+                {% for item in stats3 %}
+                <div class="rank-station">
+                    {{ item.station }}
+                    <span class="restaurant-count">{{ item.restaurant_count }}</span>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </main>
@@ -92,7 +104,7 @@
                 scales: {
                     x: {
                         stacked: true,
-                        ticks: {stepSize: 4}
+                        ticks: {stepSize: 10}
                     },
                     y: {
                         stacked: true

@@ -1,9 +1,9 @@
 #stats-area {
-    width: 85%; margin: 0px auto;
+    width: 85%; margin: 0px auto; height: 400px;
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
-#stats-area #title {
-    padding: 15px 0px;
+#stats-area .title, #rank-area .title {
+    padding: 10px 0px;
     font-size: 17px; font-weight: 550; color: var(--color-content);
 }
 
@@ -12,7 +12,7 @@
 }
 /* 設計表格外框的圓角 */
 #stats-table {
-    width: 90%; margin: 0px auto;
+    width: 90%; margin: 5px auto;
     border: 1px solid var(--color-border); border-radius: 10px;
     border-collapse: collapse; overflow: hidden;
     background-color: #FFFFFF; text-align: center;
@@ -22,7 +22,7 @@
     font-weight: 550; color: #FFFFFF; background-color: var(--color-primary);
 }
 #stats-table th, #stats-table td {
-    padding: 7.5px 10px;
+    padding: 7px 10px;
     border-bottom: 1px solid var(--color-border);
     font-size: 15px;
 }
@@ -32,7 +32,24 @@
 }
 
 
+#rank-area {
+    width: 85%; margin: 0px auto;
+}
+#rank-row {
+    margin: 4px 20px;
+    display: flex; flex-wrap: wrap; gap: 0px 15px;
+}
+.rank-station {
+    padding: 3px 9px;
+    border: 1px solid #DCEAF7; border-radius: 5px;
+    font-size: 15px; color: var(--color-content); background-color: #FFFFFF;
+}
+.restaurant-count {
+    font-weight: 600; color: #6941A5;
+}
+
+
 @media (max-width: 1024px) {
-    #stats-area {grid-template-columns: 1fr}
+    #stats-area {height: auto; grid-template-columns: 1fr}
     #table-area {width: 100%; margin: 75px 0px 15px 0px}
 }
